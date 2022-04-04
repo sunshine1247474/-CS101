@@ -32,17 +32,25 @@ board_table()
 def check_position(x=0, y=0):
     while x <= stage and y <= stage:
         try:
-            x, y = int(input("y position: ")), int(input("x position: "))
+            x, y = int(input("x position: ")), int(input("y position: "))
+            if board()[x - 1][y - 1] == int:
+                print("this place already has a number")
+                return check_position()
+            if board()[x - 1][y - 1] == "🏳":
+                print("unfortunately you fel on a mine :(")
             return position(x, y)
         except ValueError:
-            print("your input got to be in the range")
-
-    return check_position()
+            print("not a number")
+            return check_position()
+        except IndexError:
+            print("out of range")
+            return check_position()
+    return
 
 
 # this function is generating random numbers withing opening
 def position(x, y):
-    rand = random.randint(1, 4)
+    rand = random.randint(1, 3)
     board()[y - 1][x - 1] = rand
     print(board_table())
     print(str(rand) + " mines near by\nwhich spot are you willing to open next?")
@@ -53,11 +61,16 @@ def position(x, y):
 # def clean_board():
 
 # this is where the computer sets the mines and if we want we can call the function to see them
-def flag():
-    flag_number = int(stage / 25)
-    rand = random.randint(0, stage)
-    for i in range(1, flag_number):
-        board()[rand][rand] = "🏳"
+
+def flag(none):
+    flag_number = int(stage * stage * 0.4)
+    for i in range(flag_number - 1):
+        randR = random.randint(0, stage - 1)
+        randC = random.randint(0, stage - 1)
+        if board()[randR][randC] != "🏳":
+            board()[randR][randC] = "🏳"
+    print(none)
+    return board_table()
 
 
-check_position()
+flag("\nthis is generally were you're mines are")
