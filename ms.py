@@ -29,14 +29,15 @@ board_table()
 
 
 # this function should return fair game and status
-def check_position(x=int(input("y position: ")), y=int(input("x position: "))):
+def check_position(x=0, y=0):
     while x <= stage and y <= stage:
-        if x != "🏳" and y != "🏳":
+        try:
+            x, y = int(input("y position: ")), int(input("x position: "))
             return position(x, y)
-        else:
-            print("you have lost :(")
-            break
-    return "index out of range" + (check_position(x, y))
+        except ValueError:
+            print("your input got to be in the range")
+
+    return check_position()
 
 
 # this function is generating random numbers withing opening
@@ -44,8 +45,8 @@ def position(x, y):
     rand = random.randint(1, 4)
     board()[y - 1][x - 1] = rand
     print(board_table())
-    print(str(rand) + " mines near by\nwhich spot are you willing to open?")
-    return check_position(x, y)
+    print(str(rand) + " mines near by\nwhich spot are you willing to open next?")
+    return check_position()
 
 
 # this function is used to clean the nine diameter of a number
@@ -57,3 +58,6 @@ def flag():
     rand = random.randint(0, stage)
     for i in range(1, flag_number):
         board()[rand][rand] = "🏳"
+
+
+check_position()
