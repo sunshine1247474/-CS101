@@ -1,10 +1,16 @@
 import random
 
-# importing random library and using randint func
+# importing random library and using randint func to set board size.
 stage = random.randint(3, 5)
 
+"""
+Below 1 array that includes multiple arrays which will further more be outspread onto a "table".
+although table=[] is not a great argument because its mutable we 
+are not going to change it since it is const value of every beginning .
+"""
 
-# setup for board that will later on be used
+
+# this is the starting board
 def board(table=[]):
     for i in range(stage):
         table.append(["_"] * stage)
@@ -14,7 +20,7 @@ def board(table=[]):
 print("\nthis is your starting board - minesweeper {}x{}".format(stage, stage))
 
 
-# basically the beginning of x and y of our table (prints 1 to random number at x's and y's)
+# expanding board into a table. setting up nicely looking x's and y's
 def board_table():
     for i in range(stage):
         print(end="  " * 2 + str(i + 1))
@@ -24,44 +30,30 @@ def board_table():
         print(i + 1, board()[i])
 
 
-# yay, our first board table actually exist
+"""
+yay, our first board table actually exist. we can call it now.
+we are not using print because inside the print is made.
+if we would return anything inside the function 
+it would make sense to print the output - print(board_table()) 
+"""
+
 board_table()
 
-
-# this function should return fair game and status
-def check_position(x=0, y=0):
-    while x <= stage and y <= stage:
-        try:
-            x, y = int(input("x position: ")), int(input("y position: "))
-            if board()[x - 1][y - 1] == int:
-                print("this place already has a number")
-                return check_position()
-            if board()[x - 1][y - 1] == "🏳":
-                print("unfortunately you fel on a mine :(")
-            return position(x, y)
-        except ValueError:
-            print("not a number")
-            return check_position()
-        except IndexError:
-            print("out of range")
-            return check_position()
-    return
-
+# this function should expose spots
+"""
 
 # this function is generating random numbers withing opening
-def position(x, y):
+def expose(x, y):
+    check_position(x, y)
     rand = random.randint(1, 3)
     board()[y - 1][x - 1] = rand
     print(board_table())
     print(str(rand) + " mines near by\nwhich spot are you willing to open next?")
-    return check_position()
+    return position(x, y)
+"""
 
 
-# this function is used to clean the nine diameter of a number
-# def clean_board():
-
-# this is where the computer sets the mines and if we want we can call the function to see them
-
+# expect to return flags on board for development stage
 def flag(none):
     flag_number = int(stage * stage * 0.4)
     for i in range(flag_number - 1):
@@ -73,4 +65,12 @@ def flag(none):
     return board_table()
 
 
-flag("\nthis is generally were you're mines are")
+"""
+where the numbers already set, we obviously wouldn't want the numbers
+to be visible, so we intend to make it private, challenging...
+"""
+
+def vpb():
+
+
+flag("\nthis is generally were your mines are")
