@@ -6,7 +6,10 @@ stage = random.randint(3, 5)
 """
 Below 1 array that includes multiple arrays which will further more be outspread onto a "table".
 although table=[] is not a great argument because its mutable we 
-are not going to change it since it is const value of every beginning .
+are not going to change it since it is const value of every beginning.
+
+the general plan is constantly updating the board and showing the user only the edited board 
+that makes up the game. --> board_table()
 """
 
 
@@ -68,9 +71,22 @@ def flag(none):
 """
 where the numbers already set, we obviously wouldn't want the numbers
 to be visible, so we intend to make it private, challenging...
-"""
+"""  # virtual private board
+
 
 def vpb():
+    # flag computation algorithm
+    x = -1
+    y = 0
+    for i in board():
+        for l in i:
+            x += 1
+            if l == "🏳":
+                print(f'x = {x}, y = {y} found flag')
+            if x + 1 == stage:
+                x = -1
+                y += 1
 
 
 flag("\nthis is generally were your mines are")
+print(vpb())
